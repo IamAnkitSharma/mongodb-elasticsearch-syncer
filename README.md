@@ -44,7 +44,7 @@ Make sure you have docker and docker-compose installed in your machine
 Once the image is built you can run your nodejs or any app along with the syncer using docker-compose
 
 ```bash
-    sudo docker-compose up -d
+ sudo docker-compose up -d
 ```
 
 Now whenever any data is changed in mongodb via any medium (ORM, Direct Writes), the syncer will keep sycing the data to elasticsearch.
