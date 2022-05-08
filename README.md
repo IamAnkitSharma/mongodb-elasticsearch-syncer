@@ -17,7 +17,7 @@ add your DatabaseName.CollectionName in **direct-read-namespaces** and **change-
     direct-read-namespaces = ["mydb.users"]
     change-read-namespaces = ["mydb.users"]
 ```
-To map which MongoDB's collection indexs to a particular ElasticSearch index use mappings where you can specify database namespace and a elastic search index.
+To map which MongoDB's collection indexes to a particular ElasticSearch index use mappings where you can specify database namespace and a elastic search index.
 
 **Example:**
 ```bash
