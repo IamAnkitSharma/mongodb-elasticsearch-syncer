@@ -1,0 +1,58 @@
+# connection settings
+
+# connect to MongoDB using the following URL
+# mongo-url = "MONGO_URL"
+
+# connect to the Elasticsearch REST API at the following node URLs
+# elasticsearch-urls = ["http://host.docker.internal:9200"]
+
+# frequently required settings
+
+# if you need to seed an index from a collection and not just listen and sync changes events
+# you can copy entire collections or views from MongoDB to Elasticsearc
+direct-read-namespaces = ["es.jobs", "es.users", "db.collection", "test.test", "db2.myview"]
+
+# if you want to use MongoDB change streams instead of legacy oplog tailing use change-stream-namespaces
+# change streams require at least MongoDB API 3.6+
+# if you have MongoDB 4+ you can listen for changes to an entire database or entire deployment
+# in this case you usually don't need regexes in your config to filter collections unless you target the deployment.
+# to listen to an entire db use only the database name.  For a deployment use an empty string.
+change-stream-namespaces = ["es.jobs", "es.users", "db.collection", "test.test"]
+
+gzip = true
+stats = true
+elasticsearch-max-conns = 4 
+dropped-collections = true
+dropped-databases = true
+replay = false
+resume = true
+resume-write-unsafe = false
+# override the name under which resume state is saved
+resume-name = "default"
+# use a custom resume strategy (tokens) instead of the default strategy (timestamps)
+# tokens work with MongoDB API 3.6+ while timestamps work only with MongoDB API 4.0+
+resume-strategy = 1
+# exclude documents whose namespace matches the following pattern
+# namespace-exclude-regex = '^mydb\.ignorecollection$'
+# turn on indexing of GridFS file content
+index-files = false
+# turn on search result highlighting of GridFS content
+file-highlighting = true
+# index GridFS files inserted into the following collections
+file-namespaces = ["users.fs.files"]
+# print detailed information including request traces
+verbose = true
+# enable clustering mode
+# cluster-name = 'docker-cluster'
+# do not exit after full-sync, rather continue tailing the oplog
+exit-after-direct-reads = false
+
+
+[[mapping]]
+namespace = "es.jobs"
+index = "jobs"
+
+
+[[mapping]]
+namespace = "es.users"
+index = "users"

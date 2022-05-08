@@ -1,0 +1,1 @@
+sudo docker build . -t mongo-es-syncer --build-arg MONGO_URL=mongodb+srv://@cluster/es --build-arg ELASTIC_SEARCH_URL=http://elasticsearch:9200
