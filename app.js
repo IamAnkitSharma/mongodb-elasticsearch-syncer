@@ -39,38 +39,38 @@ app.get('/search', async (req, res) => {
       from: req.query.skip || 0,
       query: {
         bool: {
-          // should: [
-          //   {
-          //     match: {
-          //       title: { query: req.query.text, fuzziness: 2 },
-          //     },
-          //   },
-          //   {
-          //     match: {
-          //       description: { query: req.query.text, fuzziness: 2 },
-          //     },
-          //   },
-          // ],
-          "should": [
+          should: [
             {
-              "wildcard": {
-                "title": {
-                  "value": `*${req.query.text}*`,
-                  "boost": 1,
-                  "rewrite": "constant_score"
-                }
-              }
+              match: {
+                title: { query: req.query.text, fuzziness: 2 },
+              },
             },
             {
-              "wildcard": {
-                "description": {
-                  "value": `*${req.query.text}*`,
-                  "boost": 1,
-                  "rewrite": "constant_score"
-                }
-              }
-            }
-          ]
+              match: {
+                description: { query: req.query.text, fuzziness: 2 },
+              },
+            },
+          ],
+          // "should": [
+          //   {
+          //     "wildcard": {
+          //       "title": {
+          //         "value": `*${req.query.text}*`,
+          //         "boost": 1,
+          //         "rewrite": "constant_score"
+          //       }
+          //     }
+          //   },
+          //   {
+          //     "wildcard": {
+          //       "description": {
+          //         "value": `*${req.query.text}*`,
+          //         "boost": 1,
+          //         "rewrite": "constant_score"
+          //       }
+          //     }
+          //   }
+          // ]
         },
       },
     },
