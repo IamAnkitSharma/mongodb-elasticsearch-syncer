@@ -51,27 +51,7 @@ app.get('/search', async (req, res) => {
                 description: { query: req.query.text, fuzziness: 2 },
               },
             },
-          ],
-          // "should": [
-          //   {
-          //     "wildcard": {
-          //       "title": {
-          //         "value": `*${req.query.text}*`,
-          //         "boost": 1,
-          //         "rewrite": "constant_score"
-          //       }
-          //     }
-          //   },
-          //   {
-          //     "wildcard": {
-          //       "description": {
-          //         "value": `*${req.query.text}*`,
-          //         "boost": 1,
-          //         "rewrite": "constant_score"
-          //       }
-          //     }
-          //   }
-          // ]
+          ]
         },
       },
     },
@@ -92,42 +72,42 @@ app.get('/locationsSearch', async (req, res) => {
       size: req.query.limit || 10,
       from: req.query.skip || 0,
       query: {
-        "query": {
-          "bool": {
-            "should": [
-              {
-                "match": {
-                  "countryName": {
-                    "query": req.query.text,
-                    "fuzziness": 2
-                  }
-                }
-              },
-              {
-                "match": {
-                  "stateName": {
-                    "query": req.query.text,
-                    "fuzziness": 2
-                  }
-                }
-              },
-              {
-                "match": {
-                  "name": {
-                    "query": req.query.text,
-                    "fuzziness": 2
-                  }
+
+        "bool": {
+          "should": [
+            {
+              "match": {
+                "countryName": {
+                  "query": req.query.text,
+                  "fuzziness": 2
                 }
               }
-            ]
-          }
-        },
-        "fields": [
-          "countryName^3",
-          "stateName^2",
-          "name^1"
-        ]
-      }
+            },
+            {
+              "match": {
+                "stateName": {
+                  "query": req.query.text,
+                  "fuzziness": 2
+                }
+              }
+            },
+            {
+              "match": {
+                "name": {
+                  "query": req.query.text,
+                  "fuzziness": 2
+                }
+              }
+            }
+          ]
+        }
+      },
+      "fields": [
+        "countryName^3",
+        "stateName^2",
+        "name^1"
+      ]
+
     },
   });
   res.json(
