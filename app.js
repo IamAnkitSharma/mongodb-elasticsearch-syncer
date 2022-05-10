@@ -6,7 +6,7 @@ import './db.js';
 import { User } from './user.model.js';
 
 const client = new elasticsearch.Client({
-  host: `https://${process.env.ELASTIC_SEARCH_HOST}`, ssl: { rejectUnauthorized: false, pfx: [] }
+  host: `${process.env.ELASTIC_SEARCH_URL}`, ssl: { rejectUnauthorized: false, pfx: [] }
 });
 
 app.use(express.json());
