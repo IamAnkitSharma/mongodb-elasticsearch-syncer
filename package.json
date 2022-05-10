@@ -1,0 +1,22 @@
+{
+  "name": "es-sync",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.0",
+    "elasticsearch": "^16.7.3",
+    "express": "^4.18.1",
+    "mongoosastic": "^5.0.0",
+    "mongoose": "^6.3.2",
+    "tslib": "^2.4.0"
+  }
+}

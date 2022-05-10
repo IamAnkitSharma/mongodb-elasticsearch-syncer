@@ -1,0 +1,2 @@
+
+sudo docker build . -t mongo-es-syncer --build-arg MONGO_URL=mongodb+srv://iNeuron:@cluster0..mongodb.net/es --build-arg ELASTIC_SEARCH_HOST=https://search-job-portal.ap-south-1.es.amazonaws.com --build-arg ELASTIC_SEARCH_USERNAME=elasticsearch --build-arg ELASTIC_SEARCH_PASSWORD=Elasticsearch@123
