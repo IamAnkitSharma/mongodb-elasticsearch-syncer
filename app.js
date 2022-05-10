@@ -6,10 +6,8 @@ import './db.js';
 import { User } from './user.model.js';
 
 const client = new elasticsearch.Client({
-  host: `${process.env.ELASTIC_SEARCH_HOST}`,
+  host: `https://${process.env.ELASTIC_SEARCH_HOST}`, ssl: { rejectUnauthorized: false, pfx: [] }
 });
-
-
 
 app.use(express.json());
 
@@ -76,6 +74,60 @@ app.get('/search', async (req, res) => {
           // ]
         },
       },
+    },
+  });
+  res.json(
+    data.hits.hits.map((doc) => ({
+      _id: doc._id,
+      ...doc._source,
+    }))
+  );
+});
+
+
+app.get('/locationsSearch', async (req, res) => {
+  const data = await client.search({
+    index: 'locations',
+    body: {
+      size: req.query.limit || 10,
+      from: req.query.skip || 0,
+      query: {
+        "query": {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "countryName": {
+                    "query": req.query.text,
+                    "fuzziness": 2
+                  }
+                }
+              },
+              {
+                "match": {
+                  "stateName": {
+                    "query": req.query.text,
+                    "fuzziness": 2
+                  }
+                }
+              },
+              {
+                "match": {
+                  "name": {
+                    "query": req.query.text,
+                    "fuzziness": 2
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "fields": [
+          "countryName^3",
+          "stateName^2",
+          "name^1"
+        ]
+      }
     },
   });
   res.json(
