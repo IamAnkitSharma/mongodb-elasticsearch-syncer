@@ -9,6 +9,8 @@ const client = new elasticsearch.Client({
   host: `${process.env.ELASTIC_SEARCH_HOST}`,
 });
 
+
+
 app.use(express.json());
 
 app.get('/jobs', async (req, res) => {
