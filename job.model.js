@@ -18,7 +18,7 @@ const jobSchema = new mongoose.Schema(
 );
 
 // jobSchema.plugin(mongoosastic, {
-//   hosts: ["localhost:9200"],
+//   hosts: [process.env.ELASTIC_SEARCH_URL],
 //   index: "jobs",
 // });
 
