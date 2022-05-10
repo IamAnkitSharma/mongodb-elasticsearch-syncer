@@ -10,14 +10,14 @@
 
 # if you need to seed an index from a collection and not just listen and sync changes events
 # you can copy entire collections or views from MongoDB to Elasticsearc
-direct-read-namespaces = ["es.jobs", "es.users", "es.locations", "db.collection", "test.test", "db2.myview"]
+direct-read-namespaces = ["es.jobs", "es.users", "es.locations", "es.roles", "db.collection", "test.test", "db2.myview"]
 
 # if you want to use MongoDB change streams instead of legacy oplog tailing use change-stream-namespaces
 # change streams require at least MongoDB API 3.6+
 # if you have MongoDB 4+ you can listen for changes to an entire database or entire deployment
 # in this case you usually don't need regexes in your config to filter collections unless you target the deployment.
 # to listen to an entire db use only the database name.  For a deployment use an empty string.
-change-stream-namespaces = ["es.jobs", "es.users","es.locations",  "db.collection", "test.test"]
+change-stream-namespaces = ["es.jobs", "es.users","es.locations", "es.roles",  "db.collection", "test.test"]
 
 gzip = true
 stats = true
@@ -60,3 +60,7 @@ index = "users"
 [[mapping]]
 namespace = "es.locations"
 index = "locations"
+
+[[mapping]]
+namespace = "es.roles"
+index = "roles"
