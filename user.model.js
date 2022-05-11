@@ -6,16 +6,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  lastName : {
+  lastName: {
     type: String,
     required: true
   },
   email: {
-      type: String,
-      required: true
+    type: String,
+    required: true
   }
 }, {
-    timestamps: true,
+  timestamps: true,
 });
 
 // jobSchema.plugin(mongoosastic, {

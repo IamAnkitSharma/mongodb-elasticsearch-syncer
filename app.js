@@ -12,7 +12,7 @@ const client = new elasticsearch.Client({
 app.use(express.json());
 
 app.get('/jobs', async (req, res) => {
-  res.json(await Job.find());
+  res.json(await Job.find({}));
 });
 
 app.post('/jobs', async (req, res) => {
@@ -20,6 +20,25 @@ app.post('/jobs', async (req, res) => {
   await job.save();
   res.send(job);
 });
+
+app.get('/jobs/:id', async (req, res) => {
+  const job = await client.search({
+    index: 'jobs',
+    body: {
+      query: {
+        match: {
+          _id: req.params.id
+        }
+      }
+    }
+  });
+  const jobDetails = job.hits.hits[0];
+  res.send({
+    id: jobDetails._id,
+    ...jobDetails._source
+  });
+});
+
 
 app.put('/jobs/:id', async (req, res) => {
   const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
